@@ -1,0 +1,424 @@
+.villages-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+/* Page Header */
+.page-header {
+  position: relative;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #fff;
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.header-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(247, 148, 29, 0.15) 0%, transparent 50%);
+  animation: pulse 8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-fade-in-delay {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.3s forwards;
+}
+
+.page-header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #f7941d;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.page-header p {
+  font-size: 1.3rem;
+  opacity: 0.95;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 50px 5rem;
+}
+
+/* Villages Summary */
+.villages-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.summary-card {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(247, 148, 29, 0.3);
+}
+
+.summary-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.summary-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #f7941d;
+  margin-bottom: 0.5rem;
+}
+
+.summary-label {
+  font-size: 1.1rem;
+  opacity: 0.95;
+}
+
+/* Villages List */
+.villages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.village-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  border: 3px solid transparent;
+}
+
+.village-card:hover {
+  box-shadow: 0 10px 30px rgba(247, 148, 29, 0.2);
+}
+
+.village-card.expanded {
+  border-color: #f7941d;
+}
+
+.village-image {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+}
+
+.village-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.village-card:hover .village-image img {
+  transform: scale(1.1);
+}
+
+.village-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(30, 60, 114, 0.3) 100%);
+}
+
+.village-header {
+  padding: 2rem;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.village-header:hover {
+  background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%);
+}
+
+.village-info h3 {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+}
+
+.village-stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  font-size: 1rem;
+  opacity: 0.95;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+}
+
+.expand-icon {
+  font-size: 1.8rem;
+  font-weight: 700;
+  transition: transform 0.3s ease;
+}
+
+.village-card.expanded .expand-icon {
+  transform: rotate(180deg);
+}
+
+/* Village Content */
+.village-content {
+  padding: 2rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Teams List */
+.teams-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.team-item {
+  background: #f8f9fa;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.team-item:hover {
+  border-color: #f7941d;
+  box-shadow: 0 5px 15px rgba(247, 148, 29, 0.2);
+}
+
+.team-item.expanded {
+  border-color: #1e3c72;
+  background: #fff;
+}
+
+.team-header {
+  padding: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.team-header:hover {
+  background: rgba(247, 148, 29, 0.1);
+}
+
+.team-info-header h4 {
+  font-size: 1.5rem;
+  color: #1e3c72;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.captain-info {
+  color: #666;
+  font-size: 1rem;
+}
+
+.team-expand {
+  font-size: 1.5rem;
+  color: #1e3c72;
+  transition: transform 0.3s ease;
+}
+
+.team-item.expanded .team-expand {
+  transform: rotate(180deg);
+}
+
+/* Players List */
+.players-list {
+  padding: 2rem;
+  background: #fff;
+  border-top: 2px solid #e0e0e0;
+  animation: slideDown 0.3s ease-out;
+}
+
+.players-list h5 {
+  font-size: 1.3rem;
+  color: #1e3c72;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.player-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.player-item:hover {
+  background: #fff;
+  border-color: #f7941d;
+  transform: translateX(5px);
+}
+
+.player-number {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.player-name {
+  color: #333;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media screen and (max-width: 968px) {
+  .page-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .container {
+    padding: 2rem 20px 4rem;
+  }
+
+  .villages-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .village-header {
+    padding: 1.5rem;
+  }
+
+  .village-info h3 {
+    font-size: 1.6rem;
+  }
+
+  .village-stats {
+    gap: 1rem;
+  }
+
+  .players-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .page-header {
+    padding: 4rem 1rem 2rem;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .villages-summary {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .summary-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .village-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .village-info h3 {
+    font-size: 1.4rem;
+  }
+
+  .village-stats {
+    justify-content: center;
+  }
+
+  .village-content {
+    padding: 1rem;
+  }
+
+  .team-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .players-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

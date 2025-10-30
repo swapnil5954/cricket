@@ -1,10 +1,40 @@
+:root {
+  /* Logo-inspired Color Palette */
+  --navy-blue: #1a3a6b;
+  --navy-blue-dark: #0f2847;
+  --navy-blue-light: #2c5aa0;
+  --orange-primary: #ff8c42;
+  --orange-secondary: #ffa94d;
+  --orange-light: #ffc078;
+  --green-accent: #4caf50;
+  --green-light: #81c784;
+  --white: #ffffff;
+  --off-white: #f8f9fa;
+  --gray-light: #e9ecef;
+  --text-dark: #2c3e50;
+  --text-gray: #5a6c7d;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--white);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  width: 100%;
 }
 
 code {

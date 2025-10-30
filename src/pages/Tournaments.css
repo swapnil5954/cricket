@@ -1,0 +1,460 @@
+.tournaments-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+/* Enhanced Page Header */
+.page-header {
+  position: relative;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #fff;
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.header-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(247, 148, 29, 0.15) 0%, transparent 50%);
+  animation: pulse 8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-fade-in-delay {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.3s forwards;
+}
+
+.page-header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #f7941d;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.page-header p {
+  font-size: 1.3rem;
+  opacity: 0.95;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 50px 5rem;
+}
+
+/* Tournament Section */
+.tournament-section {
+  margin-bottom: 5rem;
+}
+
+/* Winner Banner */
+.winner-banner {
+  position: relative;
+  height: 500px;
+  border-radius: 25px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 3rem;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.winner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(30, 60, 114, 0.9) 0%, rgba(247, 148, 29, 0.85) 100%);
+}
+
+.winner-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem;
+  color: #fff;
+}
+
+.trophy-icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.tournament-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+.winner-info {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem 3rem;
+  border-radius: 20px;
+  margin-bottom: 2rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.winner-label {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.9;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.winner-team {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.winner-captain {
+  font-size: 1.2rem;
+  opacity: 0.95;
+}
+
+.tournament-meta {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.meta-item {
+  font-size: 1.1rem;
+  padding: 0.6rem 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+}
+
+/* Teams Section */
+.teams-section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  color: #1e3c72;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.team-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  border: 3px solid transparent;
+}
+
+.team-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(247, 148, 29, 0.3);
+  border-color: #f7941d;
+}
+
+.team-card.winner {
+  background: linear-gradient(135deg, #fff9e6 0%, #fff 100%);
+  border-color: #f7941d;
+}
+
+.team-position {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.team-card.winner .team-position {
+  background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.team-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e3c72;
+  margin: 1.5rem 0 0.8rem;
+}
+
+.team-village {
+  color: #666;
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.winner-badge {
+  background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%);
+  color: #fff;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 700;
+  display: inline-block;
+  margin-top: 1rem;
+  box-shadow: 0 4px 15px rgba(247, 148, 29, 0.4);
+}
+
+/* Awards Section */
+.awards-section {
+  margin-bottom: 3rem;
+}
+
+.awards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+.award-card {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  text-align: center;
+  border: 3px solid transparent;
+}
+
+.award-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 20px 50px rgba(247, 148, 29, 0.3);
+  border-color: #f7941d;
+}
+
+.award-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.award-title {
+  font-size: 1.6rem;
+  color: #1e3c72;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.award-winner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: left;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 15px;
+}
+
+.award-winner img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #f7941d;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.award-info {
+  flex: 1;
+}
+
+.player-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1e3c72;
+  margin-bottom: 0.3rem;
+}
+
+.player-team {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.player-stats {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #f7941d;
+}
+
+/* Tournament Divider */
+.tournament-divider {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #f7941d, transparent);
+  margin: 5rem 0;
+}
+
+/* Responsive */
+@media screen and (max-width: 968px) {
+  .page-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .container {
+    padding: 2rem 20px 4rem;
+  }
+
+  .winner-banner {
+    height: 400px;
+  }
+
+  .tournament-title {
+    font-size: 2rem;
+  }
+
+  .winner-team {
+    font-size: 2rem;
+  }
+
+  .trophy-icon {
+    font-size: 4rem;
+  }
+
+  .tournament-meta {
+    gap: 1rem;
+  }
+
+  .teams-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .awards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .page-header {
+    padding: 4rem 1rem 2rem;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .winner-banner {
+    height: 350px;
+    border-radius: 15px;
+  }
+
+  .winner-content {
+    padding: 2rem 1rem;
+  }
+
+  .tournament-title {
+    font-size: 1.6rem;
+  }
+
+  .winner-team {
+    font-size: 1.6rem;
+  }
+
+  .trophy-icon {
+    font-size: 3rem;
+  }
+
+  .winner-info {
+    padding: 1.5rem;
+  }
+
+  .tournament-meta {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .teams-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .award-winner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .award-info {
+    text-align: center;
+  }
+}
+
