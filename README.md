@@ -1,74 +1,206 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # cricket
 =======
 # Getting Started with Create React App
+=======
+# 15 Gaon Cricket Federation Website
+>>>>>>> db476bf (first commit)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive, and dynamic website for the 15 Gaon Cricket Federation built with React and Vite.
 
-## Available Scripts
+## 🏏 Features
 
-In the project directory, you can run:
+- **Modern UI/UX**: Beautiful and responsive design that works on all devices
+- **Interactive Homepage**:
+  - Auto-playing image carousel with 3 rotating hero images
+  - Animated statistics counters (count-up animation on scroll)
+  - Smooth hover effects and transitions
+  - Image zoom effects on gallery items
+  - Real cricket images from Unsplash
+  - Upcoming matches section
+  - Testimonials with photos
+  - Interactive feature cards
+  
+- **Multiple Pages**:
+  - Home - Landing page with hero section and features
+  - About - Information about the federation
+  - News & Updates - Latest news with filtering
+  - Gallery - Photo gallery with category filters
+  - Committee - Executive committee members
+  - Umpire Panel - Certified umpires
+  - Scorer Panel - Professional scorers
+  - Commentators - Expert commentators
+  - Pride of 15 Gao - Star performers
+  - Registration - Multi-type registration (Player/Umpire/Scorer/Commentator)
+  - Login - User authentication page
 
-### `npm start`
+- **Responsive Navigation**: Mobile-friendly hamburger menu
+- **Dynamic Content**: Filterable news and gallery sections
+- **Professional Design**: Cricket-themed color scheme with orange (#f7941d) and blue (#1e3c72)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+- Node.js (version 14 or higher)
+- npm or yarn
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation
 
-### `npm run build`
+1. Install dependencies:
+```bash
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Start the development server:
+```bash
+npm run dev
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Open your browser and navigate to `http://localhost:5173`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Build for Production
 
-### `npm run eject`
+```bash
+npm run build
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Preview Production Build
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm run preview
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 📁 Project Structure
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+cricket/
+├── src/
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── Navbar.css
+│   │   ├── Footer.jsx
+│   │   └── Footer.css
+│   ├── pages/
+│   │   ├── Home.jsx / Home.css
+│   │   ├── About.jsx / About.css
+│   │   ├── News.jsx / News.css
+│   │   ├── Gallery.jsx / Gallery.css
+│   │   ├── Committee.jsx
+│   │   ├── UmpirePanel.jsx
+│   │   ├── ScorerPanel.jsx
+│   │   ├── Commentators.jsx
+│   │   ├── PrideOf15Gao.jsx
+│   │   ├── TeamPages.css
+│   │   ├── Registration.jsx / Registration.css
+│   │   └── Login.jsx / Login.css
+│   ├── assets/
+│   │   ├── images/
+│   │   └── data/
+│   ├── App.jsx
+│   ├── App.css
+│   ├── index.jsx
+│   └── index.css
+├── public/
+│   ├── favicon.ico
+│   ├── logo192.png
+│   ├── logo512.png
+│   └── manifest.json
+├── index.html
+├── vite.config.js
+└── package.json
+```
 
-## Learn More
+## 🎨 Adding the Federation Logo
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To add the cricket federation logo to your website:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Save your logo image (the one you shared) to `src/assets/images/logo.png`
 
-### Code Splitting
+2. Update the Navbar component to display the logo:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```jsx
+// In src/components/Navbar.jsx
+import logo from '../assets/images/logo.png';
 
-### Analyzing the Bundle Size
+// Replace the logo-container div with:
+<img src={logo} alt="15 Gaon Cricket Federation" className="nav-logo-img" />
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3. Add CSS for the logo in `src/components/Navbar.css`:
 
-### Making a Progressive Web App
+```css
+.nav-logo-img {
+  height: 60px;
+  width: auto;
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🎯 Customization
 
-### Advanced Configuration
+### Colors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The main color scheme is defined throughout the CSS files:
+- Primary Blue: `#1e3c72`
+- Secondary Blue: `#2a5298`
+- Primary Orange: `#f7941d`
+- Accent Orange: `#ff6b35`
 
-### Deployment
+### Adding Real Images
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Currently, the website uses emoji placeholders. To add real images:
 
-### `npm run build` fails to minify
+1. Place images in `src/assets/images/`
+2. Import and use them in your components:
 
+<<<<<<< HEAD
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 >>>>>>> eea80fa (Initialize project using Create React App)
+=======
+```jsx
+import heroImage from '../assets/images/hero.jpg';
+<img src={heroImage} alt="Description" />
+```
+
+## 🔧 Technologies Used
+
+- **React 19.2.0** - UI library
+- **Vite 5.4.2** - Build tool and dev server
+- **React Router DOM** - Client-side routing
+- **CSS3** - Styling with modern features (Grid, Flexbox, Gradients)
+
+## 📱 Responsive Breakpoints
+
+- Desktop: > 968px
+- Tablet: 768px - 968px
+- Mobile: < 768px
+- Small Mobile: < 480px
+
+## 🌟 Future Enhancements
+
+- Backend integration for registration and login
+- Database for storing player, umpire, scorer, and commentator data
+- Live match scores and updates
+- Real-time commentary
+- Admin dashboard
+- Photo/video upload functionality
+- Match scheduling system
+- Player statistics tracking
+- Tournament management system
+
+## 📄 License
+
+This project is created for the 15 Gaon Cricket Federation.
+
+## 👥 Contact
+
+For any queries related to the 15 Gaon Cricket Federation website, please contact:
+- Email: info@15gaoncricket.com
+- Phone: +91 98765 43210
+
+---
+
+**Developed with ❤️ for Cricket**
+# cricket
+>>>>>>> db476bf (first commit)
