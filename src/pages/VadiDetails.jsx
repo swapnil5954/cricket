@@ -120,7 +120,7 @@ const VadiDetails = () => {
                   <h3 className="player-name-detail">{player.name}</h3>
                   <p className="player-age">Age: {player.age} years</p>
                   
-                  <div className="player-stats-grid">
+                  {/* <div className="player-stats-grid">
                     <div className="stat-item-player">
                       <span className="stat-label-small">Matches</span>
                       <span className="stat-value-small">{player.matches}</span>
@@ -137,7 +137,7 @@ const VadiDetails = () => {
                         <span className="stat-value-small">{player.wickets}</span>
                       </div>
                     )}
-                  </div>
+                  </div> */}
 
                   <div className="player-style-info">
                     <p><strong>Batting:</strong> {player.battingStyle}</p>

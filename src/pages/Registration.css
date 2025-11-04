@@ -64,79 +64,112 @@
   }
 }
 
-/* Step Indicator */
-.step-indicator {
+/* Modern Step Indicator */
+.step-indicator-modern {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 3rem 2rem 2rem;
+  padding: 3rem 3rem 2.5rem;
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   position: relative;
 }
 
-.step {
+.step-item {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
+  gap: 1rem;
   flex: 1;
-  position: relative;
-  z-index: 1;
+  opacity: 0.5;
+  transition: all 0.4s ease;
 }
 
-.step-circle {
-  width: 50px;
-  height: 50px;
+.step-item.active {
+  opacity: 1;
+}
+
+.step-item.completed {
+  opacity: 0.8;
+}
+
+.step-number-wrapper {
+  position: relative;
+}
+
+.step-number {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  border: 3px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  border: 3px solid rgba(255, 255, 255, 0.3);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
-  font-weight: 700;
-  transition: all 0.3s ease;
+  font-size: 1.5rem;
+  font-weight: 800;
+  transition: all 0.4s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.step.active .step-circle {
-  background: #f7941d;
+.step-item.active .step-number {
+  background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%);
   border-color: #f7941d;
-  box-shadow: 0 0 20px rgba(247, 148, 29, 0.5);
-  transform: scale(1.1);
+  box-shadow: 0 10px 30px rgba(247, 148, 29, 0.5);
+  transform: scale(1.15);
+  animation: pulse 2s ease-in-out infinite;
 }
 
-.step.completed .step-circle {
-  background: #4CAF50;
-  border-color: #4CAF50;
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 10px 30px rgba(247, 148, 29, 0.5); }
+  50% { box-shadow: 0 10px 40px rgba(247, 148, 29, 0.8); }
 }
 
-.step.completed .step-circle::after {
-  content: '✓';
+.step-item.completed .step-number {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  border-color: #43e97b;
+  box-shadow: 0 5px 20px rgba(67, 233, 123, 0.4);
 }
 
-.step-label {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 600;
-  text-align: center;
+.step-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
-.step.active .step-label {
-  color: #f7941d;
+.step-title {
+  font-size: 1.1rem;
+  color: #fff;
   font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
-.step.completed .step-label {
-  color: #4CAF50;
+.step-subtitle {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
 }
 
-.step-line {
-  height: 3px;
-  background: rgba(255, 255, 255, 0.2);
+.step-item.active .step-subtitle {
+  color: #f7941d;
+}
+
+.step-item.completed .step-subtitle {
+  color: #43e97b;
+}
+
+.step-connector {
   flex: 1;
-  margin: 0 1rem;
-  margin-bottom: 2.5rem;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+  transition: all 0.4s ease;
+}
+
+.step-connector.active {
+  background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+  box-shadow: 0 2px 10px rgba(67, 233, 123, 0.4);
 }
 
 /* Step Content */
@@ -157,78 +190,129 @@
 }
 
 .step-content h2 {
-  font-size: 2rem;
+  font-size: 2.3rem;
   color: #1e3c72;
   margin-bottom: 0.5rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.step-description {
+  color: #666;
+  font-size: 1.05rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  font-weight: 500;
 }
 
 .form-subtitle {
   color: #666;
   font-size: 1.1rem;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 /* User Type Selector */
 .user-type-selector {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin: 2rem 0;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2rem 0 3rem;
 }
 
 .type-btn {
-  padding: 2rem;
+  padding: 2.5rem 1.5rem;
   background: #fff;
   border: 3px solid #e0e0e0;
-  border-radius: 15px;
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
+  gap: 1rem;
   font-size: 1rem;
   font-weight: 600;
   color: #666;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.type-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #1e3c72 0%, #f7941d 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.type-btn.active::before {
+  opacity: 1;
+}
+
+.type-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
 
 .type-icon {
-  font-size: 3.5rem;
+  font-size: 3rem;
+  transition: all 0.3s ease;
+}
+
+.type-btn:hover .type-icon-wrapper {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  transform: scale(1.1) rotate(5deg);
+}
+
+.type-btn.active .type-icon-wrapper {
+  background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%);
+  box-shadow: 0 10px 30px rgba(247, 148, 29, 0.4);
 }
 
 .type-label {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: #1e3c72;
 }
 
 .type-desc {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #999;
-  font-weight: 400;
+  font-weight: 500;
+  text-align: center;
 }
 
 .type-btn:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(26, 115, 232, 0.2);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(30, 60, 114, 0.2);
   border-color: #1e3c72;
 }
 
 .type-btn.active {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
   border-color: #f7941d;
-  box-shadow: 0 8px 25px rgba(247, 148, 29, 0.3);
+  box-shadow: 0 20px 50px rgba(247, 148, 29, 0.3);
+  transform: translateY(-8px);
 }
 
-.type-btn.active .type-label,
-.type-btn.active .type-desc {
-  color: #fff;
+.type-btn.active .type-label {
+  color: #f7941d;
 }
 
 .type-btn.active .type-desc {
-  color: rgba(255, 255, 255, 0.8);
+  color: #1e3c72;
 }
 
 /* Registration Form */
@@ -370,33 +454,61 @@
 }
 
 /* Responsive */
+@media screen and (max-width: 968px) {
+  .step-indicator-modern {
+    padding: 2rem 1.5rem;
+  }
+
+  .step-number {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+
+  .step-info {
+    display: none;
+  }
+
+  .step-connector {
+    margin: 0 1rem;
+    margin-bottom: 0;
+  }
+
+  .user-type-selector {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .type-btn {
+    padding: 2rem;
+  }
+
+  .type-icon-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+
+  .type-icon {
+    font-size: 2.5rem;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .page-header h1 {
     font-size: 2.5rem;
   }
 
-  .step-indicator {
+  .step-indicator-modern {
     padding: 2rem 1rem;
-  }
-
-  .step-label {
-    font-size: 0.75rem;
-  }
-
-  .step-circle {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-  }
-
-  .user-type-selector {
-    grid-template-columns: 1fr;
-    gap: 1rem;
   }
 
   .registration-form,
   .step-content {
     padding: 2rem 1.5rem;
+  }
+
+  .step-content h2 {
+    font-size: 1.8rem;
   }
 
   .form-grid {
@@ -423,40 +535,48 @@
     padding: 2rem 15px 3rem;
   }
 
-  .step-indicator {
+  .step-indicator-modern {
     padding: 1.5rem 0.5rem;
   }
 
-  .step-label {
-    font-size: 0.7rem;
+  .step-number {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
   }
 
-  .step-circle {
-    width: 35px;
-    height: 35px;
-    font-size: 0.9rem;
-  }
-
-  .step-line {
+  .step-connector {
     margin: 0 0.5rem;
+  }
+
+  .step-content h2 {
+    font-size: 1.6rem;
+  }
+
+  .step-description {
+    font-size: 0.95rem;
+  }
+
+  .type-btn {
+    padding: 1.5rem;
+  }
+
+  .type-icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .type-icon {
+    font-size: 2rem;
+  }
+
+  .type-label {
+    font-size: 1.2rem;
   }
 
   .registration-form,
   .step-content {
     padding: 1.5rem 1rem;
-  }
-
-  .type-btn {
-    padding: 1.5rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  .type-icon {
-    font-size: 2.5rem;
-  }
-
-  .type-label {
-    font-size: 1.1rem;
   }
 
   .type-desc {

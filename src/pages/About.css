@@ -539,6 +539,10 @@
   opacity: 0.95;
 }
 
+.stats-banner-content .stat-label{
+  color: #fff;
+}
+
 /* Responsive */
 @media screen and (max-width: 968px) {
   .page-header h1 {

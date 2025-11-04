@@ -82,20 +82,43 @@ const Registration = () => {
       <div className="container">
         <div className="registration-container">
           {/* Step Progress Indicator */}
-          <div className="step-indicator">
-            <div className={`step ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}>
-              <div className="step-circle">1</div>
-              <div className="step-label">Select Role</div>
+          <div className="step-indicator-modern">
+            <div className={`step-item ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}>
+              <div className="step-number-wrapper">
+                <div className="step-number">
+                  {currentStep > 1 ? '✓' : '1'}
+                </div>
+              </div>
+              <div className="step-info">
+                <div className="step-title">Select Role</div>
+                <div className="step-subtitle">Choose your position</div>
+              </div>
             </div>
-            <div className="step-line"></div>
-            <div className={`step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}>
-              <div className="step-circle">2</div>
-              <div className="step-label">Basic Info</div>
+            
+            <div className={`step-connector ${currentStep >= 2 ? 'active' : ''}`}></div>
+            
+            <div className={`step-item ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}>
+              <div className="step-number-wrapper">
+                <div className="step-number">
+                  {currentStep > 2 ? '✓' : '2'}
+                </div>
+              </div>
+              <div className="step-info">
+                <div className="step-title">Basic Info</div>
+                <div className="step-subtitle">Personal details</div>
+              </div>
             </div>
-            <div className="step-line"></div>
-            <div className={`step ${currentStep >= 3 ? 'active' : ''}`}>
-              <div className="step-circle">3</div>
-              <div className="step-label">Additional Details</div>
+            
+            <div className={`step-connector ${currentStep >= 3 ? 'active' : ''}`}></div>
+            
+            <div className={`step-item ${currentStep >= 3 ? 'active' : ''}`}>
+              <div className="step-number-wrapper">
+                <div className="step-number">3</div>
+              </div>
+              <div className="step-info">
+                <div className="step-title">Complete</div>
+                <div className="step-subtitle">Final details</div>
+              </div>
             </div>
           </div>
 
@@ -103,12 +126,15 @@ const Registration = () => {
           {currentStep === 1 && (
             <div className="step-content">
               <h2>Choose Your Role</h2>
+              <p className="step-description">Select how you want to contribute to the 15 Gaon Cricket Federation</p>
               <div className="user-type-selector">
                 <button
                   className={`type-btn ${userType === 'player' ? 'active' : ''}`}
                   onClick={() => handleUserTypeChange('player')}
                 >
-                  <span className="type-icon">🏏</span>
+                  <div className="type-icon-wrapper">
+                    <span className="type-icon">🏏</span>
+                  </div>
                   <span className="type-label">Player</span>
                   <span className="type-desc">Join as a cricket player</span>
                 </button>
@@ -116,23 +142,19 @@ const Registration = () => {
                   className={`type-btn ${userType === 'umpire' ? 'active' : ''}`}
                   onClick={() => handleUserTypeChange('umpire')}
                 >
-                  <span className="type-icon">⚖️</span>
+                  <div className="type-icon-wrapper">
+                    <span className="type-icon">⚖️</span>
+                  </div>
                   <span className="type-label">Umpire</span>
                   <span className="type-desc">Officiate matches</span>
-                </button>
-                <button
-                  className={`type-btn ${userType === 'scorer' ? 'active' : ''}`}
-                  onClick={() => handleUserTypeChange('scorer')}
-                >
-                  <span className="type-icon">📊</span>
-                  <span className="type-label">Scorer</span>
-                  <span className="type-desc">Keep match records</span>
                 </button>
                 <button
                   className={`type-btn ${userType === 'commentator' ? 'active' : ''}`}
                   onClick={() => handleUserTypeChange('commentator')}
                 >
-                  <span className="type-icon">🎤</span>
+                  <div className="type-icon-wrapper">
+                    <span className="type-icon">🎤</span>
+                  </div>
                   <span className="type-label">Commentator</span>
                   <span className="type-desc">Provide match commentary</span>
                 </button>
@@ -319,36 +341,6 @@ const Registration = () => {
                     min="0"
                     placeholder="Enter years of experience"
                   />
-                </div>
-              </div>
-            )}
-
-            {/* Scorer Specific Fields */}
-            {userType === 'scorer' && (
-              <div className="form-grid">
-                <div className="form-group">
-                  <label>Years of Experience *</label>
-                  <input
-                    type="number"
-                    name="scoringExperience"
-                    value={formData.scoringExperience}
-                    onChange={handleChange}
-                    required
-                    min="0"
-                    placeholder="Enter years of experience"
-                  />
-                </div>
-
-                <div className="form-group checkbox-group">
-                  <label>
-                    <input
-                      type="checkbox"
-                      name="digitalScoring"
-                      checked={formData.digitalScoring}
-                      onChange={handleChange}
-                    />
-                    <span>Familiar with digital scoring systems</span>
-                  </label>
                 </div>
               </div>
             )}

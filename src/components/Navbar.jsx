@@ -98,11 +98,11 @@ const Navbar = () => {
                     Umpire Panel
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/scorer-panel" className="dropdown-link" onClick={closeMenu}>
                     Scorer Panel
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to="/commentators" className="dropdown-link" onClick={closeMenu}>
                     Commentators
