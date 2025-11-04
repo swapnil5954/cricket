@@ -1,0 +1,459 @@
+.vadi-details-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* Hero Section */
+.vadi-hero {
+  position: relative;
+  min-height: 450px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.vadi-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(247, 148, 29, 0.15) 0%, transparent 50%);
+  animation: pulse 8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.hero-content-vadi {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+  padding: 3rem 2rem;
+  max-width: 1200px;
+}
+
+.back-link-vadi {
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 2rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.back-link-vadi:hover {
+  background: rgba(247, 148, 29, 0.9);
+  border-color: #f7941d;
+  transform: translateX(-5px);
+}
+
+.hero-content-vadi h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #f7941d;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  font-weight: 800;
+}
+
+.village-name-badge {
+  font-size: 1.3rem;
+  color: #fff;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.team-info-hero {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  margin-top: 2rem;
+}
+
+.team-name-hero {
+  font-size: 2.5rem;
+  color: #f7941d;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.team-icon-hero {
+  font-size: 3rem;
+}
+
+.captain-info-hero {
+  font-size: 1.3rem;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.captain-icon-hero {
+  font-size: 1.5rem;
+}
+
+/* Container */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+/* Team Stats */
+.team-stats-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.stat-box {
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 3px solid transparent;
+}
+
+.stat-box:hover {
+  transform: translateY(-10px);
+  border-color: #f7941d;
+  box-shadow: 0 20px 50px rgba(247, 148, 29, 0.3);
+}
+
+.stat-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1e3c72;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Players Section */
+.players-section-detail {
+  background: #fff;
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.section-title-detail {
+  font-size: 2.5rem;
+  color: #1e3c72;
+  margin-bottom: 3rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.title-icon-detail {
+  font-size: 3rem;
+}
+
+.players-grid-detail {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+/* Player Card */
+.player-card-detail {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 3px solid #e0e0e0;
+}
+
+.player-card-detail:hover {
+  transform: translateY(-10px);
+  border-color: #f7941d;
+  box-shadow: 0 15px 40px rgba(247, 148, 29, 0.3);
+}
+
+.player-photo-wrapper {
+  position: relative;
+  height: 280px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #f7941d;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.player-role-badge {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.player-role-badge[data-role="batsman"] {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
+.player-role-badge[data-role="bowler"] {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: #fff;
+}
+
+.player-role-badge[data-role="all-rounder"] {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: #fff;
+}
+
+.player-role-badge[data-role="wicket-keeper"] {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: #fff;
+}
+
+.player-info-detail {
+  padding: 2rem;
+}
+
+.player-name-detail {
+  font-size: 1.4rem;
+  color: #1e3c72;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.player-age {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.player-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-item-player {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  border-left: 3px solid #f7941d;
+}
+
+.stat-label-small {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.stat-value-small {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1e3c72;
+}
+
+.player-style-info {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.player-style-info p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.player-style-info strong {
+  color: #1e3c72;
+}
+
+/* Not Found */
+.not-found {
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.not-found h2 {
+  font-size: 2.5rem;
+  color: #1e3c72;
+  margin-bottom: 2rem;
+}
+
+.btn-back {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+  background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(247, 148, 29, 0.4);
+}
+
+/* Responsive */
+@media screen and (max-width: 968px) {
+  .vadi-hero {
+    min-height: 400px;
+  }
+
+  .hero-content-vadi h1 {
+    font-size: 2.5rem;
+  }
+
+  .team-name-hero {
+    font-size: 2rem;
+  }
+
+  .team-stats-section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .players-grid-detail {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  .section-title-detail {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .vadi-hero {
+    min-height: 350px;
+  }
+
+  .hero-content-vadi h1 {
+    font-size: 2rem;
+  }
+
+  .village-name-badge {
+    font-size: 1.1rem;
+  }
+
+  .team-name-hero {
+    font-size: 1.6rem;
+    flex-direction: column;
+  }
+
+  .captain-info-hero {
+    font-size: 1.1rem;
+    flex-direction: column;
+  }
+
+  .container {
+    padding: 2rem 1rem;
+  }
+
+  .team-stats-section {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-box {
+    padding: 2rem 1.5rem;
+  }
+
+  .players-section-detail {
+    padding: 2rem 1rem;
+  }
+
+  .players-grid-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title-detail {
+    font-size: 1.6rem;
+  }
+
+  .player-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero-content-vadi {
+    padding: 2rem 1rem;
+  }
+
+  .team-info-hero {
+    padding: 1.5rem;
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+  }
+
+  .player-photo {
+    width: 150px;
+    height: 150px;
+  }
+
+  .player-info-detail {
+    padding: 1.5rem;
+  }
+}
+

@@ -78,14 +78,14 @@ const Navbar = () => {
             <li className="nav-item dropdown">
               <span className="nav-link dropdown-trigger">Teams & Villages <span className="dropdown-arrow">▾</span></span>
               <ul className="dropdown-menu">
-                <li>
+                {/* <li>
                   <Link to="/all-teams" className="dropdown-link" onClick={closeMenu}>
                     All Teams (40)
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to="/villages" className="dropdown-link" onClick={closeMenu}>
-                    15 Gaon Villages
+                    15 Gaon Villages & Teams
                   </Link>
                 </li>
                 <li>

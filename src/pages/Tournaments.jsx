@@ -25,11 +25,17 @@ const Tournaments = () => {
           { name: 'Village 5 Lions', village: 'Village 5', position: '4th', prize: '₹10,000' }
       ],
       awards: {
+        manOfTheSeries: {
+          name: 'Rohit Deshmukh',
+          team: 'Village 7 Warriors',
+          stats: '456 runs, 12 wickets',
+          image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop'
+        },
         bestBatsman: {
           name: 'Sagar Pawar',
           team: 'Village 3 Tigers',
           stats: '456 runs',
-          image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop'
+          image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&h=200&fit=crop'
         },
         bestBowler: {
           name: 'Akash Jadhav',
@@ -70,6 +76,12 @@ const Tournaments = () => {
           { name: 'Village 14 Champions', village: 'Village 14', position: '4th', prize: '₹8,000' }
       ],
       awards: {
+        manOfTheSeries: {
+          name: 'Sagar Pawar',
+          team: 'Village 3 Tigers',
+          stats: '398 runs, 18 wickets',
+          image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop'
+        },
         bestBatsman: {
           name: 'Pratik Mane',
           team: 'Village 14 Champions',
@@ -1124,6 +1136,29 @@ const Tournaments = () => {
             {/* Awards Section */}
             <div className="awards-section">
               <h3 className="section-title">Tournament Awards</h3>
+              
+              {/* Man of the Series - Featured */}
+              {tournament.awards.manOfTheSeries && (
+                <div className="man-of-series-featured">
+                  <div className="featured-badge">
+                    <span className="badge-icon">⭐</span>
+                    <span className="badge-text">Man of the Series</span>
+                  </div>
+                  <div className="featured-content">
+                    <div className="featured-image">
+                      <img src={tournament.awards.manOfTheSeries.image} alt={tournament.awards.manOfTheSeries.name} />
+                      <div className="image-overlay"></div>
+                    </div>
+                    <div className="featured-info">
+                      <h4 className="featured-name">{tournament.awards.manOfTheSeries.name}</h4>
+                      <p className="featured-team">{tournament.awards.manOfTheSeries.team}</p>
+                      <p className="featured-stats">{tournament.awards.manOfTheSeries.stats}</p>
+                      <div className="trophy-icon">🏆</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="awards-grid">
                 {/* Best Batsman */}
                 <div className="award-card">

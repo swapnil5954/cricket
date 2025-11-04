@@ -12,8 +12,10 @@ import ScorerPanel from './pages/ScorerPanel';
 import Commentators from './pages/Commentators';
 import PrideOf15Gao from './pages/PrideOf15Gao';
 import Tournaments from './pages/Tournaments';
-import AllTeams from './pages/AllTeams';
+import TournamentDetails from './pages/TournamentDetails';
+// import AllTeams from './pages/AllTeams'; // Hidden as per requirement
 import Villages from './pages/Villages';
+import VadiDetails from './pages/VadiDetails';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import './App.css';
@@ -30,8 +32,10 @@ function App() {
             <Route path="/news" element={<News />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/tournaments" element={<Tournaments />} />
-            <Route path="/all-teams" element={<AllTeams />} />
+            <Route path="/tournament-details/:id" element={<TournamentDetails />} />
+            {/* <Route path="/all-teams" element={<AllTeams />} /> */}
             <Route path="/villages" element={<Villages />} />
+            <Route path="/vadi-details/:villageId/:vadiIndex" element={<VadiDetails />} />
             <Route path="/committee" element={<Committee />} />
             <Route path="/umpire-panel" element={<UmpirePanel />} />
             <Route path="/scorer-panel" element={<ScorerPanel />} />

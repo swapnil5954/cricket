@@ -128,30 +128,48 @@ const Home = () => {
     }
   }, [statsVisible]);
 
-  const upcomingMatches = [
+  const upcomingTournaments = [
     {
       id: 1,
-      team1: "Village 3",
-      team2: "Village 7",
-      date: "Oct 25, 2025",
-      time: "2:00 PM",
-      venue: "Main Ground"
+      name: "15 Gaon Premier League 2025",
+      date: "December 15-25, 2025",
+      place: "Central Cricket Stadium, Satara",
+      showComingSoon: false,
+      teams: 40,
+      prizes: [
+        { position: "1st", amount: "₹50,000" },
+        { position: "2nd", amount: "₹30,000" },
+        { position: "3rd", amount: "₹5,000" },
+        { position: "4th", amount: "₹5,000" }
+      ]
     },
     {
       id: 2,
-      team1: "Village 12",
-      team2: "Village 5",
-      date: "Oct 27, 2025",
-      time: "3:00 PM",
-      venue: "Central Stadium"
+      name: "Village Champions Trophy",
+      date: "January 5-15, 2026",
+      place: "15 Gaon Sports Complex",
+      showComingSoon: true,
+      teams: 32,
+      prizes: [
+        { position: "1st", amount: "₹50,000" },
+        { position: "2nd", amount: "₹30,000" },
+        { position: "3rd", amount: "₹5,000" },
+        { position: "4th", amount: "₹5,000" }
+      ]
     },
     {
       id: 3,
-      team1: "Village 8",
-      team2: "Village 15",
-      date: "Oct 29, 2025",
-      time: "2:30 PM",
-      venue: "Sports Complex"
+      name: "Inter-Vadi Cricket Cup",
+      date: "February 1-10, 2026",
+      place: "Multiple Venues",
+      showComingSoon: true,
+      teams: 30,
+      prizes: [
+        { position: "1st", amount: "₹50,000" },
+        { position: "2nd", amount: "₹30,000" },
+        { position: "3rd", amount: "₹5,000" },
+        { position: "4th", amount: "₹5,000" }
+      ]
     }
   ];
 
@@ -302,29 +320,68 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Upcoming Matches Section */}
-      <section className="upcoming-matches">
+      {/* Upcoming Tournaments Section */}
+      <section className="upcoming-tournaments">
         <div className="container">
           <div className="section-header">
-            <h2>Upcoming Matches</h2>
+            <h2>Upcoming Tournaments</h2>
             <div className="underline"></div>
           </div>
-          <div className="matches-grid">
-            {upcomingMatches.map(match => (
-              <div key={match.id} className="match-card">
-                <div className="match-date">
-                  <span className="date">{match.date}</span>
-                  <span className="time">{match.time}</span>
+          <div className="tournaments-grid">
+            {upcomingTournaments.map(tournament => (
+              <div key={tournament.id} className="tournament-card">
+                <div className="tournament-header-simple">
+                  <h3 className="tournament-name-simple">{tournament.name}</h3>
+                  {tournament.showComingSoon && (
+                    <span className="coming-soon-badge">Coming Soon</span>
+                  )}
                 </div>
-                <div className="match-teams">
-                  <div className="team">{match.team1}</div>
-                  <div className="vs">VS</div>
-                  <div className="team">{match.team2}</div>
+                
+                <div className="tournament-info">
+                  <div className="info-item">
+                    <span className="info-icon">📅</span>
+                    <div className="info-content">
+                      <span className="info-label">Date</span>
+                      <span className="info-value">{tournament.date}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="info-item">
+                    <span className="info-icon">📍</span>
+                    <div className="info-content">
+                      <span className="info-label">Place</span>
+                      <span className="info-value">{tournament.place}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="info-item">
+                    <span className="info-icon">🏏</span>
+                    <div className="info-content">
+                      <span className="info-label">Teams</span>
+                      <span className="info-value">{tournament.teams} Teams</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="match-venue">
-                  📍 {match.venue}
+
+                {/* Prize Money Section */}
+                <div className="prizes-section">
+                  <h4 className="prizes-title">
+                    <span className="prize-icon">🏆</span>
+                    Prize Money
+                  </h4>
+                  <div className="prizes-grid">
+                    {tournament.prizes.map((prize, idx) => (
+                      <div key={idx} className="prize-item">
+                        <span className="prize-position">{prize.position}</span>
+                        <span className="prize-amount">{prize.amount}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <button className="btn-match-details">View Details</button>
+
+                <Link to={`/tournament-details/${tournament.id}`} className="btn-tournament-details">
+                  View Schedule & Details →
+                </Link>
               </div>
             ))}
           </div>

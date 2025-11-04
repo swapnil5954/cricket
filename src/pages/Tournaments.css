@@ -471,6 +471,116 @@
   margin-bottom: 3rem;
 }
 
+/* Man of the Series - Featured Card */
+.man-of-series-featured {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 20px;
+  padding: 0;
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(30, 60, 114, 0.3);
+  border: 3px solid #f7941d;
+}
+
+.featured-badge {
+  background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.badge-icon {
+  font-size: 2rem;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.2) rotate(10deg); }
+  75% { transform: scale(1.2) rotate(-10deg); }
+}
+
+.badge-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.featured-content {
+  display: flex;
+  padding: 2.5rem;
+  gap: 2rem;
+  align-items: center;
+}
+
+.featured-image {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.featured-image img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #f7941d;
+  box-shadow: 0 10px 30px rgba(247, 148, 29, 0.5);
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.featured-info {
+  flex: 1;
+  color: #fff;
+  position: relative;
+}
+
+.featured-name {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #f7941d;
+  margin-bottom: 0.8rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.featured-team {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  opacity: 0.95;
+  font-weight: 600;
+}
+
+.featured-stats {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f7941d;
+  margin-bottom: 1rem;
+}
+
+.trophy-icon {
+  font-size: 4rem;
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.3;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(-50%); }
+  50% { transform: translateY(calc(-50% - 20px)); }
+}
+
 .awards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -561,6 +671,18 @@
   .awards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .featured-name {
+    font-size: 2rem;
+  }
+
+  .featured-stats {
+    font-size: 1.3rem;
+  }
+
+  .trophy-icon {
+    font-size: 3rem;
+  }
 }
 
 @media screen and (max-width: 968px) {
@@ -637,6 +759,33 @@
   .awards-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.2rem;
+  }
+
+  .featured-content {
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  .featured-image img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .featured-name {
+    font-size: 1.8rem;
+  }
+
+  .featured-team {
+    font-size: 1.1rem;
+  }
+
+  .featured-stats {
+    font-size: 1.2rem;
+  }
+
+  .trophy-icon {
+    font-size: 2.5rem;
+    right: 1rem;
   }
 }
 
@@ -740,6 +889,40 @@
 
   .award-card {
     padding: 1.2rem;
+  }
+
+  .featured-content {
+    flex-direction: column;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .featured-image img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .featured-name {
+    font-size: 1.6rem;
+  }
+
+  .featured-team {
+    font-size: 1rem;
+  }
+
+  .featured-stats {
+    font-size: 1.1rem;
+  }
+
+  .trophy-icon {
+    position: static;
+    transform: none;
+    font-size: 2rem;
+    margin-top: 1rem;
+  }
+
+  .badge-text {
+    font-size: 1.2rem;
   }
 
   .award-icon {

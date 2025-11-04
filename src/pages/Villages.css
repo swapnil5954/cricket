@@ -1,6 +1,6 @@
 .villages-page {
   min-height: 100vh;
-  background: #f8f9fa;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
 /* Page Header */
@@ -60,6 +60,7 @@
   margin-bottom: 1rem;
   color: #f7941d;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  font-weight: 800;
 }
 
 .page-header p {
@@ -70,104 +71,301 @@
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 3rem 50px 5rem;
+  padding: 3rem 2rem 5rem;
 }
 
-/* Villages Summary */
+/* Summary Stats */
 .villages-summary {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
 }
 
 .summary-card {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
   padding: 2.5rem 2rem;
   border-radius: 20px;
   text-align: center;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
 }
 
+.summary-card:nth-child(1) {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.summary-card:nth-child(2) {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.summary-card:nth-child(3) {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.summary-card:nth-child(4) {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
 .summary-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(247, 148, 29, 0.3);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
 }
 
 .summary-icon {
   font-size: 3rem;
   margin-bottom: 1rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
 .summary-number {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #f7941d;
+  font-size: 3.5rem;
+  font-weight: 800;
   margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .summary-label {
   font-size: 1.1rem;
   opacity: 0.95;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* Villages List */
-.villages-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+/* Villages Grid View */
+.villages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  animation: fadeIn 0.5s ease-in;
 }
 
-.village-card {
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.village-card-modern {
   background: #fff;
   border-radius: 20px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
   border: 3px solid transparent;
 }
 
-.village-card:hover {
-  box-shadow: 0 10px 30px rgba(247, 148, 29, 0.2);
-}
-
-.village-card.expanded {
+.village-card-modern:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(247, 148, 29, 0.3);
   border-color: #f7941d;
 }
 
-.village-image {
+.village-image-wrapper {
   position: relative;
   width: 100%;
-  height: 280px;
+  height: 220px;
   overflow: hidden;
 }
 
-.village-image img {
+.village-image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
-.village-card:hover .village-image img {
-  transform: scale(1.1);
+.village-card-modern:hover .village-image-wrapper img {
+  transform: scale(1.15);
 }
 
-.village-image-overlay {
+.village-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(30, 60, 114, 0.3) 100%);
+  background: linear-gradient(180deg, transparent 40%, rgba(30, 60, 114, 0.8) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
 }
 
-.village-header {
-  padding: 2rem;
+.village-badge {
+  background: rgba(247, 148, 29, 0.95);
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.village-content-modern {
+  padding: 1.8rem;
+}
+
+.village-name {
+  font-size: 1.5rem;
+  color: #1e3c72;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.village-info-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.info-item .icon {
+  font-size: 1.2rem;
+}
+
+.view-details-btn {
+  width: 100%;
+  padding: 0.8rem 1.5rem;
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+}
+
+.view-details-btn:hover {
+  background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(247, 148, 29, 0.4);
+}
+
+/* Village Detail View */
+.village-detail-view {
+  animation: fadeIn 0.5s ease-in;
+}
+
+.back-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+}
+
+.detail-header {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.detail-hero-img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+}
+
+.detail-header-content {
+  padding: 2.5rem;
+}
+
+.detail-header-content h2 {
+  font-size: 2.5rem;
+  color: #1e3c72;
+  margin-bottom: 1rem;
+  font-weight: 800;
+}
+
+.detail-stats {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  color: #666;
+  font-size: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.detail-stats span {
+  font-weight: 500;
+}
+
+/* Vadis Section */
+.vadis-section {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 2rem;
+  color: #1e3c72;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-title::before {
+  content: '📍';
+  font-size: 2.5rem;
+}
+
+.vadis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.vadi-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 15px;
+  overflow: hidden;
+  border: 3px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.vadi-card:hover {
+  border-color: #f7941d;
+  box-shadow: 0 8px 25px rgba(247, 148, 29, 0.2);
+  transform: translateY(-5px);
+}
+
+.vadi-card.expanded {
+  border-color: #1e3c72;
+  background: #fff;
+}
+
+.vadi-header {
+  padding: 1.5rem;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -175,50 +373,60 @@
   transition: all 0.3s ease;
 }
 
-.village-header:hover {
-  background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%);
+.vadi-header:hover {
+  background: rgba(247, 148, 29, 0.1);
 }
 
-.village-info h3 {
-  font-size: 2rem;
-  margin-bottom: 0.8rem;
+.vadi-info h4 {
+  font-size: 1.3rem;
+  color: #1e3c72;
+  margin-bottom: 0.5rem;
   font-weight: 700;
 }
 
-.village-stats {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.stat-item {
-  font-size: 1rem;
-  opacity: 0.95;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.4rem 1rem;
+.team-count {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 0.3rem 1rem;
   border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
 .expand-icon {
-  font-size: 1.8rem;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
   font-weight: 700;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.village-card.expanded .expand-icon {
+.vadi-card.expanded .expand-icon {
+  background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%);
   transform: rotate(180deg);
 }
 
-/* Village Content */
-.village-content {
-  padding: 2rem;
+.vadi-teams {
+  padding: 1.5rem;
+  background: #fff;
+  border-top: 3px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   animation: slideDown 0.3s ease-out;
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -226,162 +434,211 @@
   }
 }
 
-/* Teams List */
-.teams-list {
+.team-preview {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.team-item {
-  background: #f8f9fa;
-  border-radius: 15px;
-  overflow: hidden;
-  border: 2px solid #e0e0e0;
-  transition: all 0.3s ease;
-}
-
-.team-item:hover {
-  border-color: #f7941d;
-  box-shadow: 0 5px 15px rgba(247, 148, 29, 0.2);
-}
-
-.team-item.expanded {
-  border-color: #1e3c72;
-  background: #fff;
-}
-
-.team-header {
-  padding: 1.5rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  transition: background 0.3s ease;
-}
-
-.team-header:hover {
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.8rem;
   background: rgba(247, 148, 29, 0.1);
+  border-radius: 8px;
+  width: fit-content;
 }
 
-.team-info-header h4 {
-  font-size: 1.5rem;
-  color: #1e3c72;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-}
-
-.captain-info {
-  color: #666;
+.team-icon-sm {
   font-size: 1rem;
 }
 
-.team-expand {
-  font-size: 1.5rem;
+.team-name-sm {
+  font-size: 0.95rem;
   color: #1e3c72;
-  transition: transform 0.3s ease;
+  font-weight: 600;
 }
 
-.team-item.expanded .team-expand {
-  transform: rotate(180deg);
+.team-details {
+  width: 100%;
 }
 
-/* Players List */
-.players-list {
-  padding: 2rem;
-  background: #fff;
-  border-top: 2px solid #e0e0e0;
-  animation: slideDown 0.3s ease-out;
-}
-
-.players-list h5 {
-  font-size: 1.3rem;
-  color: #1e3c72;
+.team-header-info {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  padding: 1.5rem;
+  border-radius: 12px;
   margin-bottom: 1.5rem;
+}
+
+.team-full-name {
+  font-size: 1.5rem;
+  color: #f7941d;
+  margin-bottom: 0.8rem;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.team-icon {
+  font-size: 1.8rem;
+}
+
+.team-captain {
+  color: #fff;
+  font-size: 1.1rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.captain-icon {
+  font-size: 1.3rem;
+}
+
+.players-section {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.players-title {
+  font-size: 1.2rem;
+  color: #1e3c72;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.players-title::before {
+  content: '👥';
+  font-size: 1.5rem;
 }
 
 .players-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.8rem;
 }
 
-.player-item {
+.player-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: #f8f9fa;
+  gap: 0.8rem;
+  padding: 0.8rem;
+  background: #fff;
   border-radius: 10px;
+  border-left: 3px solid #f7941d;
   transition: all 0.3s ease;
-  border: 2px solid transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.player-item:hover {
-  background: #fff;
-  border-color: #f7941d;
-  transform: translateX(5px);
+.player-card:hover {
+  transform: translateX(8px);
+  box-shadow: 0 4px 15px rgba(247, 148, 29, 0.3);
+  border-left-width: 5px;
 }
 
 .player-number {
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: #fff;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   flex-shrink: 0;
 }
 
 .player-name {
   color: #333;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  flex: 1;
 }
 
-/* Responsive */
+.team-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  border-left: 4px solid #f7941d;
+  transition: all 0.3s ease;
+}
+
+.team-badge:hover {
+  background: linear-gradient(135deg, #fff5e6 0%, #ffe6cc 100%);
+  transform: translateX(10px);
+  box-shadow: 0 5px 15px rgba(247, 148, 29, 0.2);
+}
+
+.team-name {
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Responsive Design */
 @media screen and (max-width: 968px) {
   .page-header h1 {
     font-size: 2.5rem;
   }
 
+  .page-header p {
+    font-size: 1.1rem;
+  }
+
   .container {
-    padding: 2rem 20px 4rem;
+    padding: 2rem 1.5rem 4rem;
   }
 
   .villages-summary {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
 
-  .village-header {
-    padding: 1.5rem;
+  .summary-number {
+    font-size: 2.8rem;
   }
 
-  .village-info h3 {
-    font-size: 1.6rem;
+  .villages-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
   }
 
-  .village-stats {
-    gap: 1rem;
+  .vadis-grid {
+    grid-template-columns: 1fr;
   }
 
-  .players-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  .detail-header-content h2 {
+    font-size: 2rem;
+  }
+
+  .detail-hero-img {
+    height: 250px;
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 640px) {
   .page-header {
     padding: 4rem 1rem 2rem;
   }
 
   .page-header h1 {
     font-size: 2rem;
+  }
+
+  .page-header p {
+    font-size: 1rem;
+  }
+
+  .container {
+    padding: 1.5rem 1rem 3rem;
   }
 
   .villages-summary {
@@ -393,32 +650,84 @@
     padding: 2rem 1.5rem;
   }
 
-  .village-header {
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
+  .summary-number {
+    font-size: 2.5rem;
   }
 
-  .village-info h3 {
-    font-size: 1.4rem;
+  .villages-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .village-stats {
-    justify-content: center;
+  .village-name {
+    font-size: 1.3rem;
   }
 
-  .village-content {
-    padding: 1rem;
+  .detail-header-content {
+    padding: 1.5rem;
   }
 
-  .team-header {
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
+  .detail-header-content h2 {
+    font-size: 1.7rem;
+  }
+
+  .detail-hero-img {
+    height: 200px;
+  }
+
+  .vadis-section {
+    padding: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .back-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
   }
 
   .players-grid {
     grid-template-columns: 1fr;
   }
+
+  .player-card {
+    padding: 0.7rem;
+  }
+
+  .team-full-name {
+    font-size: 1.3rem;
+  }
+
+  .team-captain {
+    font-size: 1rem;
+  }
 }
 
+@media screen and (max-width: 480px) {
+  .village-info-row {
+    gap: 1rem;
+  }
+
+  .info-item {
+    font-size: 0.9rem;
+  }
+
+  .detail-stats {
+    font-size: 0.95rem;
+    gap: 0.8rem;
+  }
+
+  .vadi-info h4 {
+    font-size: 1.1rem;
+  }
+
+  .team-badge {
+    padding: 0.8rem 1rem;
+  }
+
+  .team-name {
+    font-size: 1rem;
+  }
+}
