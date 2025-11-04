@@ -1,10 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchCommittee } from '../services/api';
 import './TeamPages.css';
 
 const Committee = () => {
   const [selectedMember, setSelectedMember] = useState(null);
+  const [committeeMembers, setCommitteeMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const committeeMembers = [
+  useEffect(() => {
+    loadCommittee();
+  }, []);
+
+  const loadCommittee = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchCommittee();
+      // Transform API data to match component expectations
+      const transformedData = data.map(member => ({
+        id: member.committee_id,
+        name: member.full_name,
+        position: member.position,
+        village: 'Village',
+        image: member.photo_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+        bio: member.description || `Serving as ${member.position} for 15 Gaon Cricket Federation.`,
+        email: member.email,
+        phone: member.phone
+      }));
+      setCommitteeMembers(transformedData);
+    } catch (error) {
+      console.error('Error loading committee:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // committeeMembers now fetched from API in useEffect above
+  
+  const oldCommitteeMembers = [
     { 
       id: 1, 
       name: 'Rajesh Kumar', 

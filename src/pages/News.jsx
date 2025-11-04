@@ -1,11 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchNews } from '../services/api';
 import './News.css';
 
 const News = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [expandedNews, setExpandedNews] = useState(null);
+  const [newsData, setNewsData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const newsData = [
+  useEffect(() => {
+    loadNews();
+  }, []);
+
+  const loadNews = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchNews();
+      // Transform API data to match component expectations
+      const transformedData = data.map(news => ({
+        id: news.news_id,
+        title: news.title,
+        date: news.published_date || news.published_at,
+        category: news.category.toLowerCase(),
+        excerpt: news.content.substring(0, 150) + '...',
+        fullContent: news.content,
+        image: news.featured_image_url || 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600&h=400&fit=crop',
+        author: news.author || 'Admin Team'
+      }));
+      setNewsData(transformedData);
+    } catch (error) {
+      console.error('Error loading news:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // newsData now fetched from API in useEffect above
+  
+  const oldNewsData = [
     {
       id: 1,
       title: 'Annual Tournament 2025 Kicks Off',

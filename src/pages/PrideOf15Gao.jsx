@@ -1,10 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchPridePlayers } from '../services/api';
 import './TeamPages.css';
 
 const PrideOf15Gao = () => {
   const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [pridePlayers, setPridePlayers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const pridePlayers = [
+  useEffect(() => {
+    loadPridePlayers();
+  }, []);
+
+  const loadPridePlayers = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchPridePlayers();
+      // Transform API data to match component expectations
+      const transformedData = data.map(player => ({
+        id: player.pride_id,
+        name: player.full_name,
+        role: player.role,
+        achievement: player.achievement,
+        village: player.village_name,
+        stats: player.stats,
+        image: player.photo_url || 'https://i.pravatar.cc/400?img=11',
+        bio: player.bio,
+        highlights: player.highlights || []
+      }));
+      setPridePlayers(transformedData);
+    } catch (error) {
+      console.error('Error loading pride players:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // pridePlayers now fetched from API above
+  
+  const oldPridePlayers = [
     { 
       id: 1, 
       name: 'Rohit Deshmukh', 

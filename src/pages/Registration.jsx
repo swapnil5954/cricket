@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { submitRegistration } from '../services/api';
 import './Registration.css';
 
 const Registration = () => {
   const [userType, setUserType] = useState('player');
   const [currentStep, setCurrentStep] = useState(1);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -46,28 +48,68 @@ const Registration = () => {
     setCurrentStep(1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Registration submitted:', { userType, ...formData });
-    alert('Registration submitted successfully! We will contact you soon.');
-    // Reset form
-    setFormData({
-      fullName: '',
-      email: '',
-      phone: '',
-      village: '',
-      age: '',
-      battingStyle: '',
-      bowlingStyle: '',
-      playerRole: '',
-      umpireLevel: '',
-      umpireExperience: '',
-      scoringExperience: '',
-      digitalScoring: false,
-      languages: '',
-      commentaryExperience: ''
-    });
-    setCurrentStep(1);
+    
+    try {
+      setSubmitting(true);
+      
+      // Prepare data for API
+      const registrationData = {
+        full_name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        village: formData.village,
+        age: parseInt(formData.age),
+        registration_type: userType.charAt(0).toUpperCase() + userType.slice(1), // 'player' -> 'Player'
+        
+        // Player specific fields
+        batting_style: userType === 'player' ? formData.battingStyle : null,
+        bowling_style: userType === 'player' ? formData.bowlingStyle : null,
+        player_role: userType === 'player' ? formData.playerRole : null,
+        
+        // Umpire specific fields
+        umpire_level: userType === 'umpire' ? formData.umpireLevel : null,
+        umpire_experience: userType === 'umpire' ? formData.umpireExperience : null,
+        
+        // Commentator specific fields
+        languages: userType === 'commentator' ? formData.languages : null,
+        commentary_experience: userType === 'commentator' ? formData.commentaryExperience : null
+      };
+      
+      // Submit to API
+      const result = await submitRegistration(registrationData);
+      
+      if (result.success) {
+        alert('Registration submitted successfully! We will review your application and contact you soon.');
+        
+        // Reset form
+        setFormData({
+          fullName: '',
+          email: '',
+          phone: '',
+          village: '',
+          age: '',
+          battingStyle: '',
+          bowlingStyle: '',
+          playerRole: '',
+          umpireLevel: '',
+          umpireExperience: '',
+          scoringExperience: '',
+          digitalScoring: false,
+          languages: '',
+          commentaryExperience: ''
+        });
+        setCurrentStep(1);
+      } else {
+        alert('Registration failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      alert('An error occurred. Please check your connection and try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const villages = Array.from({ length: 15 }, (_, i) => `Village ${i + 1}`);
@@ -379,8 +421,8 @@ const Registration = () => {
               <button type="button" className="btn btn-prev" onClick={prevStep}>
                 ← Previous
               </button>
-              <button type="submit" className="btn btn-submit">
-                ✓ Submit Registration
+              <button type="submit" className="btn btn-submit" disabled={submitting}>
+                {submitting ? '⏳ Submitting...' : '✓ Submit Registration'}
               </button>
             </div>
           </form>

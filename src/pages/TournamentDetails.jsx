@@ -1,190 +1,223 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { fetchTournamentById, fetchMatches } from '../services/api';
 import './TournamentDetails.css';
 
 const TournamentDetails = () => {
   const { id } = useParams();
-  const [selectedDay, setSelectedDay] = useState(1);
+  const [selectedDay, setSelectedDay] = useState(0);
+  const [tournament, setTournament] = useState(null);
+  const [matches, setMatches] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Tournament data (in production, this would come from an API)
-  const tournamentsData = {
-    1: {
-      id: 1,
-      name: "15 Gaon Premier League 2025",
-      date: "December 15-25, 2025",
-      place: "Central Cricket Stadium, Satara",
-      teams: 40,
-      prize: "₹5,00,000",
-      image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1200&h=400&fit=crop",
-      days: [
-        {
-          dayNumber: 1,
-          dayName: "Day 1",
-          date: "December 15, 2025",
-          matches: [
-            { id: 1, time: "9:00 AM", team1: "Panchgani Warriors", team2: "Khingar Royals" },
-            { id: 2, time: "11:00 AM", team1: "Mahabaleshwar Panthers", team2: "Metgutad Champions" },
-            { id: 3, time: "1:00 PM", team1: "Wai Tigers", team2: "Dhom Riders" },
-            { id: 4, time: "3:00 PM", team1: "Satara Eagles", team2: "Powai Thunders" },
-            { id: 5, time: "5:00 PM", team1: "Karad Lions", team2: "Malkapur Kings" },
-            { id: 6, time: "7:00 PM", team1: "Koregaon Knights", team2: "Vaduj Victors" }
-          ]
-        },
-        {
-          dayNumber: 2,
-          dayName: "Day 2",
-          date: "December 16, 2025",
-          matches: [
-            { id: 7, time: "9:00 AM", team1: "Lonand Warriors", team2: "Khatav Spartans" },
-            { id: 8, time: "11:00 AM", team1: "Phaltan Spartans", team2: "Nimbalkar Heroes" },
-            { id: 9, time: "1:00 PM", team1: "Rahimatpur Royals", team2: "Mhaisal Fighters" },
-            { id: 10, time: "3:00 PM", team1: "Mhaswad Hurricanes", team2: "Pusegaon Pirates" },
-            { id: 11, time: "5:00 PM", team1: "Khandala Strikers", team2: "Borgaon Bullets" },
-            { id: 12, time: "7:00 PM", team1: "Medha Eagles", team2: "Velhe Vipers" }
-          ]
-        },
-        {
-          dayNumber: 3,
-          dayName: "Day 3",
-          date: "December 17, 2025",
-          matches: [
-            { id: 13, time: "9:00 AM", team1: "Tasgaon Dynamos", team2: "Kavathesar Challengers" },
-            { id: 14, time: "11:00 AM", team1: "Umbraj Champions", team2: "Mardhe Mavericks" },
-            { id: 15, time: "1:00 PM", team1: "Javali Storm", team2: "Shinoli Strikers" },
-            { id: 16, time: "3:00 PM", team1: "Panchgani Warriors", team2: "Metgutad Champions" },
-            { id: 17, time: "5:00 PM", team1: "Wai Tigers", team2: "Powai Thunders" },
-            { id: 18, time: "7:00 PM", team1: "Karad Lions", team2: "Vaduj Victors" }
-          ]
-        }
-      ]
-    },
-    2: {
-      id: 2,
-      name: "Village Champions Trophy",
-      date: "January 5-15, 2026",
-      place: "15 Gaon Sports Complex",
-      teams: 32,
-      prize: "₹3,00,000",
-      image: "https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?w=1200&h=400&fit=crop",
-      days: []
-    },
-    3: {
-      id: 3,
-      name: "Inter-Vadi Cricket Cup",
-      date: "February 1-10, 2026",
-      place: "Multiple Venues",
-      teams: 30,
-      prize: "₹2,00,000",
-      image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200&h=400&fit=crop",
-      days: []
+  useEffect(() => {
+    loadTournamentDetails();
+  }, [id]);
+
+  const loadTournamentDetails = async () => {
+    try {
+      setLoading(true);
+      
+      // Fetch tournament details
+      const tournamentData = await fetchTournamentById(id);
+      setTournament(tournamentData);
+      
+      // Fetch matches for this tournament
+      const matchesData = await fetchMatches({ tournament_id: id });
+      
+      // Group matches by date
+      const groupedByDate = groupMatchesByDate(matchesData);
+      setMatches(groupedByDate);
+      
+    } catch (error) {
+      console.error('Error loading tournament details:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const tournament = tournamentsData[id];
+  const groupMatchesByDate = (matchesData) => {
+    const grouped = {};
+    matchesData.forEach((match) => {
+      const matchDate = match.match_date;
+      if (!grouped[matchDate]) {
+        grouped[matchDate] = [];
+      }
+      grouped[matchDate].push(match);
+    });
+    
+    // Convert to array format
+    return Object.keys(grouped).map((date, index) => ({
+      dayNumber: index + 1,
+      dayName: `Day ${index + 1}`,
+      date: new Date(date).toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      }),
+      matches: grouped[date].map(match => ({
+        id: match.match_id,
+        time: match.match_time,
+        team1: match.team1,
+        team2: match.team2,
+        status: match.status,
+        winner: match.winner
+      }))
+    }));
+  };
+
+  if (loading) {
+    return (
+      <div className="tournament-details-page">
+        <div className="loading-spinner">
+          <div className="spinner"></div>
+          <p>Loading tournament details...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!tournament) {
     return (
       <div className="tournament-details-page">
         <div className="container">
-          <div className="not-found">
+          <div className="empty-state">
             <h2>Tournament Not Found</h2>
-            <Link to="/" className="btn-back">← Back to Home</Link>
+            <Link to="/tournaments" className="btn">Back to Tournaments</Link>
           </div>
         </div>
       </div>
     );
   }
 
+  const currentDayMatches = matches[selectedDay] || { matches: [] };
+
   return (
     <div className="tournament-details-page">
-      {/* Hero Section */}
-      <div className="tournament-hero" style={{ backgroundImage: `url(${tournament.image})` }}>
-        <div className="hero-overlay"></div>
-        <div className="hero-content">
-          <Link to="/" className="back-link">← Back to Home</Link>
-          <h1>{tournament.name}</h1>
+      {/* Tournament Banner */}
+      <div className="tournament-banner" style={{ 
+        backgroundImage: `url(${tournament.banner_image_url || 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1200&h=400&fit=crop'})`
+      }}>
+        <div className="banner-overlay"></div>
+        <div className="banner-content">
+          <Link to="/tournaments" className="back-btn">← Back to Tournaments</Link>
+          <h1>{tournament.tournament_name}</h1>
           <div className="tournament-meta">
-            <span className="meta-item">📅 {tournament.date}</span>
-            <span className="meta-item">📍 {tournament.place}</span>
-            <span className="meta-item">🏏 {tournament.teams} Teams</span>
-            <span className="meta-item">🏆 {tournament.prize}</span>
+            <span>📅 {tournament.date_formatted || tournament.start_date}</span>
+            <span>📍 {tournament.venue}</span>
+            <span>🏏 {tournament.total_teams} Teams</span>
+            <span>💰 Prize: ₹{tournament.prize_first}</span>
           </div>
         </div>
       </div>
 
-      {/* Schedule Section */}
       <div className="container">
-        <div className="schedule-section">
-          <h2 className="section-title">
-            <span className="title-icon">📅</span>
-            Tournament Schedule
-          </h2>
+        {/* Day Selector */}
+        {matches.length > 0 && (
+          <div className="day-selector">
+            <h2>Match Schedule</h2>
+            <div className="day-tabs">
+              {matches.map((day, index) => (
+                <button
+                  key={index}
+                  className={`day-tab ${selectedDay === index ? 'active' : ''}`}
+                  onClick={() => setSelectedDay(index)}
+                >
+                  <span className="day-name">{day.dayName}</span>
+                  <span className="day-date">{day.date}</span>
+                  <span className="matches-count">{day.matches.length} Matches</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
-          {tournament.days && tournament.days.length > 0 ? (
-            <>
-              {/* Day Tabs */}
-              <div className="day-tabs">
-                {tournament.days.map((day) => (
-                  <button
-                    key={day.dayNumber}
-                    className={`day-tab ${selectedDay === day.dayNumber ? 'active' : ''}`}
-                    onClick={() => setSelectedDay(day.dayNumber)}
-                  >
-                    <span className="day-icon">📅</span>
-                    <span className="day-tab-name">{day.dayName}</span>
-                    <span className="day-tab-date">{day.date}</span>
-                  </button>
-                ))}
-              </div>
-
-              {/* Selected Day Content */}
-              {tournament.days
-                .filter(day => day.dayNumber === selectedDay)
-                .map(day => (
-                  <div key={day.dayNumber} className="day-content">
-                    <div className="day-info-header">
-                      <h3>{day.dayName} Schedule</h3>
-                      <p className="day-subtitle">{day.date} • {day.matches.length} Matches • 12 Teams</p>
+        {/* Matches Grid */}
+        <div className="matches-section">
+          {currentDayMatches.matches.length > 0 ? (
+            <div className="matches-grid">
+              {currentDayMatches.matches.map((match) => (
+                <div key={match.id} className="match-card">
+                  <div className="match-time">
+                    <span className="time-icon">🕐</span>
+                    <span>{match.time}</span>
+                  </div>
+                  <div className="match-teams">
+                    <div className="team">
+                      <span className="team-name">{match.team1}</span>
                     </div>
-
-                    {/* All Matches for this Day */}
-                    <div className="matches-grid-simple">
-                      {day.matches.map((match) => (
-                        <div key={match.id} className="match-card-simple">
-                          <div className="match-time-header">
-                            <span className="time-icon">🕐</span>
-                            <span className="match-time-text">{match.time}</span>
-                          </div>
-                          
-                          <div className="match-teams-vs">
-                            <div className="team-box">
-                              <div className="team-name-simple">{match.team1}</div>
-                            </div>
-                            <div className="vs-divider">
-                              <span className="vs-text">VS</span>
-                            </div>
-                            <div className="team-box">
-                              <div className="team-name-simple">{match.team2}</div>
-                            </div>
-                          </div>
-
-                          <div className="match-venue-simple">
-                            <span className="venue-icon">📍</span>
-                            <span>Central Ground</span>
-                          </div>
-                        </div>
-                      ))}
+                    <div className="vs">VS</div>
+                    <div className="team">
+                      <span className="team-name">{match.team2}</span>
                     </div>
                   </div>
-                ))}
-            </>
+                  <div className="match-status">
+                    <span className={`status-badge ${match.status?.toLowerCase()}`}>
+                      {match.status || 'Scheduled'}
+                    </span>
+                  </div>
+                  {match.winner && (
+                    <div className="match-winner">
+                      🏆 Winner: {match.winner}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           ) : (
-            <div className="no-lots">
-              <div className="no-lots-icon">🎰</div>
-              <h3>Schedule Coming Soon</h3>
-              <p>The tournament schedule will be announced soon. Stay tuned!</p>
+            <div className="no-matches">
+              <p>Match schedule will be announced soon!</p>
             </div>
           )}
+        </div>
+
+        {/* Tournament Info */}
+        <div className="tournament-info-section">
+          <div className="info-card">
+            <h3>Tournament Details</h3>
+            <div className="info-grid">
+              <div className="info-item">
+                <span className="info-label">Status:</span>
+                <span className={`status-badge ${tournament.status?.toLowerCase()}`}>
+                  {tournament.status}
+                </span>
+              </div>
+              <div className="info-item">
+                <span className="info-label">Total Teams:</span>
+                <span className="info-value">{tournament.total_teams}</span>
+              </div>
+              <div className="info-item">
+                <span className="info-label">Venue:</span>
+                <span className="info-value">{tournament.venue}</span>
+              </div>
+              <div className="info-item">
+                <span className="info-label">Prize Pool:</span>
+                <span className="info-value">₹{tournament.prize_first + tournament.prize_second + tournament.prize_third + tournament.prize_fourth}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="info-card">
+            <h3>Prize Distribution</h3>
+            <div className="prize-list">
+              <div className="prize-row">
+                <span>🥇 1st Place:</span>
+                <span className="prize-amount">₹{tournament.prize_first}</span>
+              </div>
+              <div className="prize-row">
+                <span>🥈 2nd Place:</span>
+                <span className="prize-amount">₹{tournament.prize_second}</span>
+              </div>
+              <div className="prize-row">
+                <span>🥉 3rd Place:</span>
+                <span className="prize-amount">₹{tournament.prize_third}</span>
+              </div>
+              <div className="prize-row">
+                <span>4th Place:</span>
+                <span className="prize-amount">₹{tournament.prize_fourth}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

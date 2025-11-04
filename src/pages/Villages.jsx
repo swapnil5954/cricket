@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { villagesData } from '../data/villagesData';
+import { fetchVillages } from '../services/api';
 import './Villages.css';
 
 const Villages = () => {
   const navigate = useNavigate();
   const [selectedVillage, setSelectedVillage] = useState(null);
   const [expandedVadi, setExpandedVadi] = useState(null);
+  const [villagesData, setVillagesData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadVillages();
+  }, []);
+
+  const loadVillages = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchVillages();
+      setVillagesData(data);
+    } catch (error) {
+      console.error('Error loading villages:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleVillageClick = (villageId) => {
     setSelectedVillage(selectedVillage === villageId ? null : villageId);

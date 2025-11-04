@@ -1,12 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchTournamentsWithAwards } from '../services/api';
 import './Tournaments.css';
 
 const Tournaments = () => {
   const [selectedYear, setSelectedYear] = useState('2024');
   const [searchQuery, setSearchQuery] = useState('');
+  const [tournaments, setTournaments] = useState([]);
+  const [tournamentsData, setTournamentsData] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  // Tournament data organized by year
-  const tournamentsData = {
+  useEffect(() => {
+    loadTournaments();
+  }, []);
+
+  const loadTournaments = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchTournamentsWithAwards();
+      
+      // Group tournaments by year
+      const groupedByYear = data.reduce((acc, tournament) => {
+        const year = new Date(tournament.start_date).getFullYear().toString();
+        if (!acc[year]) {
+          acc[year] = [];
+        }
+        acc[year].push(tournament);
+        return acc;
+      }, {});
+      
+      setTournamentsData(groupedByYear);
+      setTournaments(data);
+      
+      // Set the most recent year as default
+      const years = Object.keys(groupedByYear).sort((a, b) => b - a);
+      if (years.length > 0) {
+        setSelectedYear(years[0]);
+      }
+    } catch (error) {
+      console.error('Error loading tournaments:', error);
+      // Fallback to empty data
+      setTournamentsData({});
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // tournamentsData now fetched from API and grouped by year above
+  
+  // OLD hardcoded data below (keeping as reference)
+  const oldTournamentsData = {
     '2024': [
     {
       id: 1,

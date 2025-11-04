@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { fetchDashboardStats, fetchTournaments, fetchNews, fetchGallery } from '../services/api';
 import './Home.css';
 
 const Home = () => {
@@ -7,6 +8,37 @@ const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [hoveredGalleryItem, setHoveredGalleryItem] = useState(null);
   const [galleryInView, setGalleryInView] = useState(false);
+  const [apiStats, setApiStats] = useState(null);
+  const [upcomingTournaments, setUpcomingTournaments] = useState([]);
+  const [latestNews, setLatestNews] = useState([]);
+  const [galleryImages, setGalleryImages] = useState([]);
+
+  // Fetch data from API on mount
+  useEffect(() => {
+    loadHomeData();
+  }, []);
+
+  const loadHomeData = async () => {
+    try {
+      // Fetch dashboard stats
+      const statsData = await fetchDashboardStats();
+      setApiStats(statsData);
+
+      // Fetch upcoming tournaments
+      const tournamentsData = await fetchTournaments('Upcoming');
+      setUpcomingTournaments(tournamentsData.slice(0, 3));
+
+      // Fetch latest news
+      const newsData = await fetchNews();
+      setLatestNews(newsData.slice(0, 3));
+
+      // Fetch gallery images
+      const galleryData = await fetchGallery();
+      setGalleryImages(galleryData.slice(0, 6));
+    } catch (error) {
+      console.error('Error loading home data:', error);
+    }
+  };
 
   // Hero carousel images
   const heroSlides = [
@@ -81,11 +113,12 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (statsVisible) {
+    if (statsVisible && apiStats) {
       // Animate villages
       let villageCount = 0;
+      const targetVillages = parseInt(apiStats.total_villages) || 15;
       const villageInterval = setInterval(() => {
-        if (villageCount < 15) {
+        if (villageCount < targetVillages) {
           villageCount++;
           setStats(prev => ({ ...prev, villages: villageCount }));
         } else {
@@ -95,21 +128,23 @@ const Home = () => {
 
       // Animate players
       let playerCount = 0;
+      const targetPlayers = parseInt(apiStats.total_players) || 500;
       const playerInterval = setInterval(() => {
-        if (playerCount < 500) {
+        if (playerCount < targetPlayers) {
           playerCount += 10;
-          setStats(prev => ({ ...prev, players: Math.min(playerCount, 500) }));
+          setStats(prev => ({ ...prev, players: Math.min(playerCount, targetPlayers) }));
         } else {
           clearInterval(playerInterval);
         }
       }, 20);
 
-      // Animate matches
+      // Animate matches (tournaments for now)
       let matchCount = 0;
+      const targetMatches = parseInt(apiStats.active_tournaments) * 10 || 50;
       const matchInterval = setInterval(() => {
-        if (matchCount < 50) {
+        if (matchCount < targetMatches) {
           matchCount += 2;
-          setStats(prev => ({ ...prev, matches: Math.min(matchCount, 50) }));
+          setStats(prev => ({ ...prev, matches: Math.min(matchCount, targetMatches) }));
         } else {
           clearInterval(matchInterval);
         }
@@ -126,52 +161,9 @@ const Home = () => {
         }
       }, 100);
     }
-  }, [statsVisible]);
+  }, [statsVisible, apiStats]);
 
-  const upcomingTournaments = [
-    {
-      id: 1,
-      name: "15 Gaon Premier League 2025",
-      date: "December 15-25, 2025",
-      place: "Central Cricket Stadium, Satara",
-      showComingSoon: false,
-      teams: 40,
-      prizes: [
-        { position: "1st", amount: "₹50,000" },
-        { position: "2nd", amount: "₹30,000" },
-        { position: "3rd", amount: "₹5,000" },
-        { position: "4th", amount: "₹5,000" }
-      ]
-    },
-    {
-      id: 2,
-      name: "Village Champions Trophy",
-      date: "January 5-15, 2026",
-      place: "15 Gaon Sports Complex",
-      showComingSoon: true,
-      teams: 32,
-      prizes: [
-        { position: "1st", amount: "₹50,000" },
-        { position: "2nd", amount: "₹30,000" },
-        { position: "3rd", amount: "₹5,000" },
-        { position: "4th", amount: "₹5,000" }
-      ]
-    },
-    {
-      id: 3,
-      name: "Inter-Vadi Cricket Cup",
-      date: "February 1-10, 2026",
-      place: "Multiple Venues",
-      showComingSoon: true,
-      teams: 30,
-      prizes: [
-        { position: "1st", amount: "₹50,000" },
-        { position: "2nd", amount: "₹30,000" },
-        { position: "3rd", amount: "₹5,000" },
-        { position: "4th", amount: "₹5,000" }
-      ]
-    }
-  ];
+  // upcomingTournaments now fetched from API in useEffect above
 
   const testimonials = [
     {
@@ -197,50 +189,7 @@ const Home = () => {
     }
   ];
 
-  const galleryItems = [
-    {
-      id: 1,
-      title: "Annual Tournament 2024",
-      category: "Tournament",
-      image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=500&h=500&fit=crop",
-      description: "Highlights from our biggest tournament of the year"
-    },
-    {
-      id: 2,
-      title: "Training Sessions",
-      category: "Training",
-      image: "https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?w=500&h=500&fit=crop",
-      description: "Professional coaching and skill development"
-    },
-    {
-      id: 3,
-      title: "Championship Final",
-      category: "Match",
-      image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=500&h=500&fit=crop",
-      description: "The thrilling finale of the season"
-    },
-    {
-      id: 4,
-      title: "Team Celebrations",
-      category: "Event",
-      image: "https://images.unsplash.com/photo-1512719994953-eabf50895df7?w=500&h=500&fit=crop",
-      description: "Victory moments and team spirit"
-    },
-    {
-      id: 5,
-      title: "Youth Training Camp",
-      category: "Training",
-      image: "https://images.unsplash.com/photo-1589487391730-58f20eb2c308?w=500&h=500&fit=crop",
-      description: "Nurturing the next generation of cricketers"
-    },
-    {
-      id: 6,
-      title: "Awards Ceremony",
-      category: "Event",
-      image: "https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=500&h=500&fit=crop",
-      description: "Recognizing outstanding performances"
-    }
-  ];
+  // Gallery items now fetched from API in useEffect above
 
   return (
     <div className="home">
@@ -329,11 +278,11 @@ const Home = () => {
           </div>
           <div className="tournaments-grid">
             {upcomingTournaments.map(tournament => (
-              <div key={tournament.id} className="tournament-card">
+              <div key={tournament.tournament_id || tournament.id} className="tournament-card">
                 <div className="tournament-header-simple">
-                  <h3 className="tournament-name-simple">{tournament.name}</h3>
-                  {tournament.showComingSoon && (
-                    <span className="coming-soon-badge">Coming Soon</span>
+                  <h3 className="tournament-name-simple">{tournament.tournament_name || tournament.name}</h3>
+                  {tournament.status === 'Upcoming' && (
+                    <span className="coming-soon-badge">Upcoming</span>
                   )}
                 </div>
                 
@@ -342,7 +291,7 @@ const Home = () => {
                     <span className="info-icon">📅</span>
                     <div className="info-content">
                       <span className="info-label">Date</span>
-                      <span className="info-value">{tournament.date}</span>
+                      <span className="info-value">{tournament.date_formatted || tournament.date}</span>
                     </div>
                   </div>
                   
@@ -350,7 +299,7 @@ const Home = () => {
                     <span className="info-icon">📍</span>
                     <div className="info-content">
                       <span className="info-label">Place</span>
-                      <span className="info-value">{tournament.place}</span>
+                      <span className="info-value">{tournament.venue || tournament.place}</span>
                     </div>
                   </div>
                   
@@ -358,7 +307,7 @@ const Home = () => {
                     <span className="info-icon">🏏</span>
                     <div className="info-content">
                       <span className="info-label">Teams</span>
-                      <span className="info-value">{tournament.teams} Teams</span>
+                      <span className="info-value">{tournament.total_teams || tournament.teams} Teams</span>
                     </div>
                   </div>
                 </div>
@@ -370,12 +319,22 @@ const Home = () => {
                     Prize Money
                   </h4>
                   <div className="prizes-grid">
-                    {tournament.prizes.map((prize, idx) => (
-                      <div key={idx} className="prize-item">
-                        <span className="prize-position">{prize.position}</span>
-                        <span className="prize-amount">{prize.amount}</span>
-                      </div>
-                    ))}
+                    <div className="prize-item">
+                      <span className="prize-position">1st</span>
+                      <span className="prize-amount">₹{tournament.prize_first || '50,000'}</span>
+                    </div>
+                    <div className="prize-item">
+                      <span className="prize-position">2nd</span>
+                      <span className="prize-amount">₹{tournament.prize_second || '30,000'}</span>
+                    </div>
+                    <div className="prize-item">
+                      <span className="prize-position">3rd</span>
+                      <span className="prize-amount">₹{tournament.prize_third || '15,000'}</span>
+                    </div>
+                    <div className="prize-item">
+                      <span className="prize-position">4th</span>
+                      <span className="prize-amount">₹{tournament.prize_fourth || '10,000'}</span>
+                    </div>
                   </div>
                 </div>
 
@@ -545,23 +504,23 @@ const Home = () => {
           </div>
           
           <div className="gallery-grid-preview">
-            {galleryItems.map((item, index) => (
+            {galleryImages.map((item, index) => (
               <div 
-                key={item.id} 
+                key={item.gallery_id || item.id} 
                 className={`gallery-item-preview ${galleryInView ? 'animate-in' : ''}`}
                 style={{ 
                   animationDelay: `${index * 0.1}s`,
                   '--item-index': index 
                 }}
-                onMouseEnter={() => setHoveredGalleryItem(item.id)}
+                onMouseEnter={() => setHoveredGalleryItem(item.gallery_id || item.id)}
                 onMouseLeave={() => setHoveredGalleryItem(null)}
               >
                 <div className="gallery-image-container">
-                  <img src={item.image} alt={item.title} loading="lazy" />
+                  <img src={item.image_url || item.image} alt={item.title} loading="lazy" />
                   <div className="gallery-category-badge">{item.category}</div>
                 </div>
                 
-                <div className={`gallery-overlay-preview ${hoveredGalleryItem === item.id ? 'hovered' : ''}`}>
+                <div className={`gallery-overlay-preview ${hoveredGalleryItem === (item.gallery_id || item.id) ? 'hovered' : ''}`}>
                   <div className="gallery-content">
                     <span className="gallery-icon">📸</span>
                     <h3>{item.title}</h3>
@@ -573,7 +532,7 @@ const Home = () => {
                   </div>
                 </div>
 
-                {hoveredGalleryItem === item.id && (
+                {hoveredGalleryItem === (item.gallery_id || item.id) && (
                   <div className="gallery-shine"></div>
                 )}
               </div>

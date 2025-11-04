@@ -1,11 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchGallery } from '../services/api';
 import './Gallery.css';
 
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [lightboxImage, setLightboxImage] = useState(null);
+  const [galleryData, setGalleryData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const galleryData = [
+  useEffect(() => {
+    loadGallery();
+  }, []);
+
+  const loadGallery = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchGallery();
+      // Transform API data to match component expectations
+      const transformedData = data.map(img => ({
+        id: img.gallery_id,
+        category: img.category.toLowerCase(),
+        title: img.title,
+        image: img.image_url,
+        date: img.upload_date || 'Recent'
+      }));
+      setGalleryData(transformedData);
+    } catch (error) {
+      console.error('Error loading gallery:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // galleryData now fetched from API in useEffect above
+  
+  const oldGalleryData = [
     { 
       id: 1, 
       category: 'tournaments', 

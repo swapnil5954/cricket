@@ -1,11 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchTeams } from '../services/api';
 import './AllTeams.css';
 
 const AllTeams = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedVillage, setSelectedVillage] = useState('all');
+  const [teams, setTeams] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Generate 40 teams (2-3 teams per village)
+  useEffect(() => {
+    loadTeams();
+  }, []);
+
+  const loadTeams = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchTeams();
+      // Transform API data to match component expectations
+      const transformedData = data.map(team => ({
+        id: team.team_id,
+        name: team.team_name,
+        village: team.village_name,
+        captain: team.captain_name || 'TBA',
+        players: team.player_count || 0,
+        wins: 0, // This would come from match statistics
+        image: team.team_logo_url || 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=400&h=300&fit=crop'
+      }));
+      setTeams(transformedData);
+    } catch (error) {
+      console.error('Error loading teams:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // teams now fetched from API in useEffect above
+  
+  // Generate 40 teams (2-3 teams per village) - OLD DATA for reference
   const teamImages = [
     'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=400&h=300&fit=crop',
     'https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?w=400&h=300&fit=crop',
@@ -17,7 +48,7 @@ const AllTeams = () => {
     'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=400&h=300&fit=crop'
   ];
 
-  const teams = [
+  const oldTeams = [
     // Village 1
     { id: 1, name: 'Village 1 Warriors', village: 'Village 1', captain: 'Rajesh Kumar', players: 15, wins: 12, image: teamImages[0] },
     { id: 2, name: 'Village 1 Tigers', village: 'Village 1', captain: 'Ashok Shinde', players: 14, wins: 10, image: teamImages[1] },
